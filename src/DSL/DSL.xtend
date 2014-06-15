@@ -54,23 +54,23 @@ class DSL {
 	}
 
 	// ---------------------- AGREGA UN BLOQUE A UN EVENTO ----- //
-	def Evento operator_tripleGreaterThan(Evento even, (Evento)=>void f) {
+	def Evento operator_tripleGreaterThan(Evento even, (Evento) => void f) {
 		f.apply(even)
 		return even
 	}
 
 	// ---------------------------- REMINDERS CONFIGURABLES --------- //
-	def dispatch RecordatorioEmail operator_spaceship(RecordatorioEmail r, (RecordatorioEmail)=>void f) {
+	def dispatch RecordatorioEmail operator_spaceship(RecordatorioEmail r, (RecordatorioEmail) => void f) {
 		f.apply(r)
 		return r
 	}
 
-	def dispatch RecordatorioLlamada operator_spaceship(RecordatorioLlamada r, (RecordatorioLlamada)=>void f) {
+	def dispatch RecordatorioLlamada operator_spaceship(RecordatorioLlamada r, (RecordatorioLlamada) => void f) {
 		f.apply(r)
 		return r
 	}
 
-	def dispatch RecordatorioSMS operator_spaceship(RecordatorioSMS r, (RecordatorioSMS)=>void f) {
+	def dispatch RecordatorioSMS operator_spaceship(RecordatorioSMS r, (RecordatorioSMS) => void f) {
 		f.apply(r)
 		return r
 	}
