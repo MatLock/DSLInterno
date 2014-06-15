@@ -9,5 +9,6 @@ public interface AgendaListener {
 	public void notificarPorMail(String mensaje);
 	public void notificarPorSMS(String mensaje);
 	public void notificarPorLlamada(String mensaje);
+	public void guardarDatos(String string);
 
 }

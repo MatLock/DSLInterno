@@ -37,7 +37,7 @@ public class Evento {
 	}
 	public void notificar(AgendaListener listener){
 		Recordatorio recordatorio = this.getRecordatorio();
-		recordatorio.notificar(this.getNombre(),listener);
+		recordatorio.notificar("Recordatorio Del Evento: "+this.getNombre(),listener);
 		for(String mensaje : mensajes ){
      		recordatorio.notificar(mensaje,listener);		
 		}

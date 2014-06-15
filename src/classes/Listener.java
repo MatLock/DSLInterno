@@ -38,17 +38,26 @@ public class Listener implements AgendaListener {
 
 	@Override
 	public void notificarPorMail(String mensaje) {
-		notificaciones.add("Recordatorio del Evento por EMAIL " + mensaje);
+		notificaciones.add("mensaje: "+mensaje+" 'Enviado por EMAIL'");
 	}
 
 	@Override
 	public void notificarPorSMS(String mensaje) {
-		notificaciones.add("Recordatorio del Evento por SMS: " +"' "+ mensaje +" '");	
+		notificaciones.add("mensaje: "+mensaje+" 'Enviado por SMS'");	
 	}
 
 	@Override
 	public void notificarPorLlamada(String mensaje) {
-		notificaciones.add("Recordatorio del Evento por Llamada " + mensaje);
+		notificaciones.add("mensaje: "+mensaje+" 'Enviado por EMAIL'");
+	}
+
+
+
+
+	@Override
+	public void guardarDatos(String string) {
+		notificaciones.add(string);
+		
 	}
 
 }
