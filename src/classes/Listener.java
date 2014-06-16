@@ -48,7 +48,7 @@ public class Listener implements AgendaListener {
 
 	@Override
 	public void notificarPorLlamada(String mensaje) {
-		notificaciones.add("mensaje: "+mensaje+" 'Enviado por EMAIL'");
+		notificaciones.add("mensaje: "+mensaje+" 'Recordado Por Llamada Telefonica'");
 	}
 
 

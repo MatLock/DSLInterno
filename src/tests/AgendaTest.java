@@ -30,13 +30,14 @@ public class AgendaTest {
 	
 	@Before
 	public void setUp(){
-		agenda = new Agenda(new ArrayList<Evento>(),null);
+		agenda = new Agenda(new ArrayList<Evento>());
 		listener1 = mock(Listener.class);
 		listener2 = mock(Listener.class);
 		listener3 = mock(Listener.class);
 		evento1 = mock(Evento.class);
 		when(evento1.getHoraInicio()).thenReturn(1);
 		when(evento1.getNombre()).thenReturn("pepitos");
+		when(evento1.getRecordatorio()).thenReturn(recordatorioSMS);
 		evento2 = mock(Evento.class);
 		when(evento2.getHoraInicio()).thenReturn(2);
 		when(evento2.getNombre()).thenReturn("hola");
@@ -53,27 +54,23 @@ public class AgendaTest {
 	
 	@Test
 	public void testTickSMS(){
-		agenda.setRecordatorio(recordatorioSMS);
 		agenda.tick(0,listener1);
 		assertEquals(agenda.getEventos().size(),3);
-		verify(recordatorioSMS).notificar("pepitos", listener1);
+		verify(evento1).notificar(listener1);
 	}
 	@Test
 	public void testTickLlamada(){
-		agenda.setRecordatorio(recordatorioLlamada);
 		agenda.tick(1,listener2);
-		verify(recordatorioLlamada).notificar("hola", listener2);
+		verify(evento2).notificar(listener2);
 	}
 	@Test
 	public void testTickEmail(){
-		agenda.setRecordatorio(recordatorioEmail);
 		agenda.tick(2,listener3);
-		verify(recordatorioEmail).notificar("chau", listener3);
+		verify(evento3).notificar(listener3);
 	}
 	
 	@Test(expected = NoHayEventoException.class)
 	public void testTickFailed(){
-		agenda.setRecordatorio(recordatorioEmail);
 		agenda.tick(3,listener3);
 	}
 	

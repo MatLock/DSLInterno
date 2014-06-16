@@ -35,6 +35,10 @@ public class Evento {
 	public void setRecordatorio(Recordatorio recordatorio) {
 		this.recordatorio = recordatorio;
 	}
+	
+	
+	
+	
 	public void notificar(AgendaListener listener){
 		Recordatorio recordatorio = this.getRecordatorio();
 		recordatorio.notificar("Recordatorio Del Evento: "+this.getNombre(),listener);
@@ -43,16 +47,11 @@ public class Evento {
 		}
 	}
 	
+	
 	public void add(String mensaje){
 		this.getMensajes().add(mensaje);
 	}
 	
-	
-	public Evento(int horaInicio, String nombre) {
-		super();
-		this.horaInicio = horaInicio;
-		this.nombre = nombre;
-	}
 	
 	public Evento(int horaInicio, String nombre,List<String>mensajes) {
 		super();

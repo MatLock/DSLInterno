@@ -4,7 +4,7 @@ import interfaces.AgendaListener;
 
 
 public class RecordatorioLlamada extends Recordatorio{
-	Integer numeroDeDestino;
+	Integer numeroDeDestino = 000;
 
 	public Integer getNumeroDeDestino() {
 		return numeroDeDestino;

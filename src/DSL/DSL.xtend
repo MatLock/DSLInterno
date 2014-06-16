@@ -35,7 +35,10 @@ class DSL {
 		return new Agenda(new ArrayList<Evento>());
 	}
 
-	// ---------------  DEFINE LA ESTRATEGIA ------------------- //
+
+   // ---------------  DEFINE LA ESTRATEGIA ------------------- //
+	
+	
 	def RecordatorioLlamada recordarPorLlamada() {
 		return new RecordatorioLlamada();
 	}
@@ -49,17 +52,23 @@ class DSL {
 	}
 
 	// ----------------  CREA UN LISTENER -------------------- //
+	
 	def Listener listener() {
 		return new Listener(new ArrayList<String>());
 	}
 
+	
+	
 	// ---------------------- AGREGA UN BLOQUE A UN EVENTO ----- //
+	
 	def Evento operator_tripleGreaterThan(Evento even, (Evento) => void f) {
 		f.apply(even)
 		return even
 	}
 
+	
 	// ---------------------------- REMINDERS CONFIGURABLES --------- //
+	
 	def dispatch RecordatorioEmail operator_spaceship(RecordatorioEmail r, (RecordatorioEmail) => void f) {
 		f.apply(r)
 		return r
@@ -103,25 +112,34 @@ class DSL {
 
 		val listener = listener()
 		val listener2 = listener()
+		val listener3 = listener()
 		val agenda = crearAgenda()
 
-		agenda -> ( ( 8 => "despertarse") >> recordarPorSMS()) 
-		       -> ( ( 10 => "Ir a la facu") >> recordarPorEmail()) 
+		agenda -> ( ( 8 => "despertarse") >> (recordarPorLlamada() <=>
+											  [it | it.setNumeroDeDestinoLlamada(123)])) 
+		
+		
+		       -> ( ( 10 => "Ir a la facu") >> (recordarPorEmail() <=>
+		       				 [it | it.setSubjectYEmail("unEmail@gmail","Ir a la facu")]))
+		       
 		       -> ( ( (11 => "almorzar") >>> [ Evento remindMe | remindMe.add("acuerdate tambien de tener Plata")
 			                                   ]) 
 			                             >> ( recordarPorSMS() <=> [it | it.setNumeroDeDestinoSMS(123)
 			                             	                          ]))
-
-		agenda.tick(10, listener);
-		System.out.println(listener.getNotificaciones().get(0))
-		System.out.println(listener.getNotificaciones().get(1))
-		System.out.println(listener.getNotificaciones().get(2))
-		System.out.println(listener.getNotificaciones().get(3))
-
+		
+		
 		agenda.tick(7, listener2)
-		System.out.println(listener2.getNotificaciones().get(0))
-		System.out.println(listener2.getNotificaciones().get(1))
-
+		listener2.getNotificaciones().forEach [each | System.out.println(each)]
+	    
+	    System.out.println("\n")
+		
+		agenda.tick(9,listener3)
+        listener3.getNotificaciones().forEach [each | System.out.println(each)]
+        
+        System.out.println("\n")
+		agenda.tick(10, listener);
+		listener.getNotificaciones().forEach [ each | System.out.println(each)]
+        
 	}
 
 	def static void main(String[] args) {

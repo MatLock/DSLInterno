@@ -10,6 +10,7 @@ import classes.RecordatorioSMS;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
 
 @SuppressWarnings("all")
@@ -99,51 +100,70 @@ public class DSL {
   public void run() {
     final Listener listener = this.listener();
     final Listener listener2 = this.listener();
+    final Listener listener3 = this.listener();
     final Agenda agenda = this.crearAgenda();
     Evento _doubleArrow = this.operator_doubleArrow(8, "despertarse");
-    RecordatorioSMS _recordarPorSMS = this.recordarPorSMS();
-    Evento _doubleGreaterThan = this.operator_doubleGreaterThan(_doubleArrow, _recordarPorSMS);
+    RecordatorioLlamada _recordarPorLlamada = this.recordarPorLlamada();
+    final Procedure1<Object> _function = new Procedure1<Object>() {
+      public void apply(final Object it) {
+        DSL.this.setNumeroDeDestinoLlamada(it, 123);
+      }
+    };
+    Recordatorio _spaceship = this.operator_spaceship(_recordarPorLlamada, _function);
+    Evento _doubleGreaterThan = this.operator_doubleGreaterThan(_doubleArrow, _spaceship);
     Agenda _mappedTo = this.operator_mappedTo(agenda, _doubleGreaterThan);
     Evento _doubleArrow_1 = this.operator_doubleArrow(10, "Ir a la facu");
     RecordatorioEmail _recordarPorEmail = this.recordarPorEmail();
-    Evento _doubleGreaterThan_1 = this.operator_doubleGreaterThan(_doubleArrow_1, _recordarPorEmail);
+    final Procedure1<Object> _function_1 = new Procedure1<Object>() {
+      public void apply(final Object it) {
+        DSL.this.setSubjectYEmail(it, "unEmail@gmail", "Ir a la facu");
+      }
+    };
+    Recordatorio _spaceship_1 = this.operator_spaceship(_recordarPorEmail, _function_1);
+    Evento _doubleGreaterThan_1 = this.operator_doubleGreaterThan(_doubleArrow_1, _spaceship_1);
     Agenda _mappedTo_1 = this.operator_mappedTo(_mappedTo, _doubleGreaterThan_1);
     Evento _doubleArrow_2 = this.operator_doubleArrow(11, "almorzar");
-    final Procedure1<Evento> _function = new Procedure1<Evento>() {
+    final Procedure1<Evento> _function_2 = new Procedure1<Evento>() {
       public void apply(final Evento remindMe) {
         remindMe.add("acuerdate tambien de tener Plata");
       }
     };
-    Evento _tripleGreaterThan = this.operator_tripleGreaterThan(_doubleArrow_2, _function);
-    RecordatorioSMS _recordarPorSMS_1 = this.recordarPorSMS();
-    final Procedure1<Object> _function_1 = new Procedure1<Object>() {
+    Evento _tripleGreaterThan = this.operator_tripleGreaterThan(_doubleArrow_2, _function_2);
+    RecordatorioSMS _recordarPorSMS = this.recordarPorSMS();
+    final Procedure1<Object> _function_3 = new Procedure1<Object>() {
       public void apply(final Object it) {
         DSL.this.setNumeroDeDestinoSMS(it, 123);
       }
     };
-    Recordatorio _spaceship = this.operator_spaceship(_recordarPorSMS_1, _function_1);
-    Evento _doubleGreaterThan_2 = this.operator_doubleGreaterThan(_tripleGreaterThan, _spaceship);
+    Recordatorio _spaceship_2 = this.operator_spaceship(_recordarPorSMS, _function_3);
+    Evento _doubleGreaterThan_2 = this.operator_doubleGreaterThan(_tripleGreaterThan, _spaceship_2);
     this.operator_mappedTo(_mappedTo_1, _doubleGreaterThan_2);
-    agenda.tick(10, listener);
-    List<String> _notificaciones = listener.getNotificaciones();
-    String _get = _notificaciones.get(0);
-    System.out.println(_get);
-    List<String> _notificaciones_1 = listener.getNotificaciones();
-    String _get_1 = _notificaciones_1.get(1);
-    System.out.println(_get_1);
-    List<String> _notificaciones_2 = listener.getNotificaciones();
-    String _get_2 = _notificaciones_2.get(2);
-    System.out.println(_get_2);
-    List<String> _notificaciones_3 = listener.getNotificaciones();
-    String _get_3 = _notificaciones_3.get(3);
-    System.out.println(_get_3);
     agenda.tick(7, listener2);
-    List<String> _notificaciones_4 = listener2.getNotificaciones();
-    String _get_4 = _notificaciones_4.get(0);
-    System.out.println(_get_4);
-    List<String> _notificaciones_5 = listener2.getNotificaciones();
-    String _get_5 = _notificaciones_5.get(1);
-    System.out.println(_get_5);
+    List<String> _notificaciones = listener2.getNotificaciones();
+    final Procedure1<String> _function_4 = new Procedure1<String>() {
+      public void apply(final String each) {
+        System.out.println(each);
+      }
+    };
+    IterableExtensions.<String>forEach(_notificaciones, _function_4);
+    System.out.println("\n");
+    agenda.tick(9, listener3);
+    List<String> _notificaciones_1 = listener3.getNotificaciones();
+    final Procedure1<String> _function_5 = new Procedure1<String>() {
+      public void apply(final String each) {
+        System.out.println(each);
+      }
+    };
+    IterableExtensions.<String>forEach(_notificaciones_1, _function_5);
+    System.out.println("\n");
+    agenda.tick(10, listener);
+    List<String> _notificaciones_2 = listener.getNotificaciones();
+    final Procedure1<String> _function_6 = new Procedure1<String>() {
+      public void apply(final String each) {
+        System.out.println(each);
+      }
+    };
+    IterableExtensions.<String>forEach(_notificaciones_2, _function_6);
   }
   
   public static void main(final String[] args) {
