@@ -1,4 +1,4 @@
-package DSL;
+package tests;
 
 import classes.Agenda;
 import classes.Evento;
@@ -10,24 +10,34 @@ import classes.RecordatorioSMS;
 import extensionMethod.ExtensionMethod;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.Extension;
-import org.eclipse.xtext.xbase.lib.IterableExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 @SuppressWarnings("all")
-public class DSL {
+public class DSLTest {
   @Extension
   private ExtensionMethod _extensionMethod = new ExtensionMethod();
   
-  public static void main(final String[] args) {
-    DSL _dSL = new DSL();
-    _dSL.run();
-  }
+  private Agenda agenda;
   
-  public void run() {
-    final Listener listener1 = this._extensionMethod.listener();
-    final Listener listener2 = this._extensionMethod.listener();
-    final Listener listener3 = this._extensionMethod.listener();
-    final Agenda agenda = this._extensionMethod.crearAgenda();
+  private Listener listener1;
+  
+  private Listener listener2;
+  
+  private Listener listener3;
+  
+  @Before
+  public void setUp() {
+    Listener _listener = this._extensionMethod.listener();
+    this.listener1 = _listener;
+    Listener _listener_1 = this._extensionMethod.listener();
+    this.listener2 = _listener_1;
+    Listener _listener_2 = this._extensionMethod.listener();
+    this.listener3 = _listener_2;
+    Agenda _crearAgenda = this._extensionMethod.crearAgenda();
+    this.agenda = _crearAgenda;
     Evento _doubleArrow = this._extensionMethod.operator_doubleArrow(8, "despertarse");
     final Procedure1<RecordatorioLlamada> _function = new Procedure1<RecordatorioLlamada>() {
       public void apply(final RecordatorioLlamada it) {
@@ -36,12 +46,13 @@ public class DSL {
     };
     RecordatorioLlamada _recordarPorLlamada = this._extensionMethod.recordarPorLlamada(_function);
     Evento _doubleGreaterThan = this._extensionMethod.operator_doubleGreaterThan(_doubleArrow, _recordarPorLlamada);
-    Agenda _mappedTo = this._extensionMethod.operator_mappedTo(agenda, _doubleGreaterThan);
+    Agenda _mappedTo = this._extensionMethod.operator_mappedTo(
+      this.agenda, _doubleGreaterThan);
     Evento _doubleArrow_1 = this._extensionMethod.operator_doubleArrow(10, "Ir a la facu");
     RecordatorioEmail _recordarPorEmail = this._extensionMethod.recordarPorEmail();
     final Procedure1<Object> _function_1 = new Procedure1<Object>() {
       public void apply(final Object it) {
-        DSL.this._extensionMethod.setSubjectYEmail(it, "unEmail@gmail", "Ir a la facu");
+        DSLTest.this._extensionMethod.setSubjectYEmail(it, "unEmail@gmail", "Ir a la facu");
       }
     };
     Recordatorio _spaceship = this._extensionMethod.operator_spaceship(_recordarPorEmail, _function_1);
@@ -57,37 +68,35 @@ public class DSL {
     RecordatorioSMS _recordarPorSMS = this._extensionMethod.recordarPorSMS();
     final Procedure1<Object> _function_3 = new Procedure1<Object>() {
       public void apply(final Object it) {
-        DSL.this._extensionMethod.setNumeroDeDestinoSMS(it, 123);
+        DSLTest.this._extensionMethod.setNumeroDeDestinoSMS(it, 123);
       }
     };
     Recordatorio _spaceship_1 = this._extensionMethod.operator_spaceship(_recordarPorSMS, _function_3);
     Evento _doubleGreaterThan_2 = this._extensionMethod.operator_doubleGreaterThan(_tripleGreaterThan, _spaceship_1);
     this._extensionMethod.operator_mappedTo(_mappedTo_1, _doubleGreaterThan_2);
-    agenda.tick(7, listener1);
-    List<String> _notificaciones = listener1.getNotificaciones();
-    final Procedure1<String> _function_4 = new Procedure1<String>() {
-      public void apply(final String each) {
-        System.out.println(each);
-      }
-    };
-    IterableExtensions.<String>forEach(_notificaciones, _function_4);
-    System.out.println("\n");
-    agenda.tick(9, listener2);
-    List<String> _notificaciones_1 = listener2.getNotificaciones();
-    final Procedure1<String> _function_5 = new Procedure1<String>() {
-      public void apply(final String each) {
-        System.out.println(each);
-      }
-    };
-    IterableExtensions.<String>forEach(_notificaciones_1, _function_5);
-    System.out.println("\n");
-    agenda.tick(10, listener3);
-    List<String> _notificaciones_2 = listener3.getNotificaciones();
-    final Procedure1<String> _function_6 = new Procedure1<String>() {
-      public void apply(final String each) {
-        System.out.println(each);
-      }
-    };
-    IterableExtensions.<String>forEach(_notificaciones_2, _function_6);
+  }
+  
+  @Test
+  public void testNotificacionesPorLlamada() {
+    this.agenda.tick(7, this.listener1);
+    List<String> _notificaciones = this.listener1.getNotificaciones();
+    int _size = _notificaciones.size();
+    Assert.assertEquals(_size, 2);
+  }
+  
+  @Test
+  public void testNotificacionesPorSMS() {
+    this.agenda.tick(10, this.listener3);
+    List<String> _notificaciones = this.listener3.getNotificaciones();
+    int _size = _notificaciones.size();
+    Assert.assertEquals(_size, 4);
+  }
+  
+  @Test
+  public void testNotificacionesPorEMAIL() {
+    this.agenda.tick(9, this.listener2);
+    List<String> _notificaciones = this.listener2.getNotificaciones();
+    int _size = _notificaciones.size();
+    Assert.assertEquals(_size, 3);
   }
 }
