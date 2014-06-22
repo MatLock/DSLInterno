@@ -1,5 +1,6 @@
 package classes;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import interfaces.AgendaListener;
@@ -53,11 +54,11 @@ public class Evento {
 	}
 	
 	
-	public Evento(int horaInicio, String nombre,List<String>mensajes) {
+	public Evento(int horaInicio, String nombre) {
 		super();
 		this.horaInicio = horaInicio;
 		this.nombre = nombre;
-		this.mensajes = mensajes;
+		this.mensajes = new ArrayList<String>();
 	}
 	
 	

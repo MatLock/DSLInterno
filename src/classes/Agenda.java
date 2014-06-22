@@ -2,6 +2,7 @@ package classes;
 
 import interfaces.AgendaListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import excepciones.NoHayEventoException;
@@ -20,9 +21,9 @@ public class Agenda {
 	}
 		
 		
-	public Agenda(List<Evento> eventos) {
+	public Agenda() {
 			super();
-			this.eventos = eventos;
+			this.eventos = new ArrayList<Evento>();
 		}
 	
 	

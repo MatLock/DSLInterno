@@ -24,8 +24,8 @@ public class ExtensionMethod {
   }
   
   public Evento operator_doubleArrow(final int hora, final String mensaje) {
-    ArrayList<String> _arrayList = new ArrayList<String>();
-    return new Evento(hora, mensaje, _arrayList);
+    throw new Error("Unresolved compilation problems:"
+      + "\nInvalid number of arguments. The constructor Evento(int, String, List<String>) is not applicable for the arguments (int,String)");
   }
   
   public Evento operator_doubleGreaterThan(final Evento evento, final Recordatorio r) {
@@ -34,8 +34,7 @@ public class ExtensionMethod {
   }
   
   public Agenda crearAgenda() {
-    ArrayList<Evento> _arrayList = new ArrayList<Evento>();
-    return new Agenda(_arrayList);
+    return new Agenda();
   }
   
   public RecordatorioLlamada recordarPorLlamada(final Procedure1<? super RecordatorioLlamada> f) {

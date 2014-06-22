@@ -23,7 +23,7 @@ class ExtensionMethod {
 
 	// crea un evento
 	def Evento operator_doubleArrow(int hora, String mensaje) {
-		return new Evento(hora, mensaje, new ArrayList<String>());
+		return new Evento(hora, mensaje);
 	}
 
 	// agregar un tipo de recordatorio
@@ -33,7 +33,7 @@ class ExtensionMethod {
 	}
 
 	def Agenda crearAgenda() {
-		return new Agenda(new ArrayList<Evento>());
+		return new Agenda();
 	}
 // ---------------  DEFINE LA ESTRATEGIA ------------------- //
 	
