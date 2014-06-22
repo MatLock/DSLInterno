@@ -82,21 +82,48 @@ public class DSLTest {
     List<String> _notificaciones = this.listener1.getNotificaciones();
     int _size = _notificaciones.size();
     Assert.assertEquals(_size, 2);
+    List<String> _notificaciones_1 = this.listener1.getNotificaciones();
+    String _get = _notificaciones_1.get(0);
+    Assert.assertEquals(_get, "Llamada a:123");
+    List<String> _notificaciones_2 = this.listener1.getNotificaciones();
+    String _get_1 = _notificaciones_2.get(0);
+    Assert.assertEquals(_get_1, "mensaje: Recordatorio Del Evento: despertarse \'Recordado Por Llamada Telefonica\'");
   }
   
   @Test
   public void testNotificacionesPorSMS() {
-    this.agenda.tick(10, this.listener3);
-    List<String> _notificaciones = this.listener3.getNotificaciones();
-    int _size = _notificaciones.size();
-    Assert.assertEquals(_size, 4);
-  }
-  
-  @Test
-  public void testNotificacionesPorEMAIL() {
     this.agenda.tick(9, this.listener2);
     List<String> _notificaciones = this.listener2.getNotificaciones();
     int _size = _notificaciones.size();
     Assert.assertEquals(_size, 3);
+    List<String> _notificaciones_1 = this.listener2.getNotificaciones();
+    String _get = _notificaciones_1.get(0);
+    Assert.assertEquals(_get, "subject: Ir a la facu");
+    List<String> _notificaciones_2 = this.listener2.getNotificaciones();
+    String _get_1 = _notificaciones_2.get(1);
+    Assert.assertEquals(_get_1, "emailDestino: unEmail@gmail");
+    List<String> _notificaciones_3 = this.listener2.getNotificaciones();
+    String _get_2 = _notificaciones_3.get(2);
+    Assert.assertEquals(_get_2, "mensaje: Recordatorio Del Evento: Ir a la facu \'Enviado por EMAIL\'");
+  }
+  
+  @Test
+  public void testNotificacionesPorEMAIL() {
+    this.agenda.tick(10, this.listener3);
+    List<String> _notificaciones = this.listener3.getNotificaciones();
+    int _size = _notificaciones.size();
+    Assert.assertEquals(_size, 4);
+    List<String> _notificaciones_1 = this.listener3.getNotificaciones();
+    String _get = _notificaciones_1.get(0);
+    Assert.assertEquals(_get, "Mensaje a Numero: 123");
+    List<String> _notificaciones_2 = this.listener3.getNotificaciones();
+    String _get_1 = _notificaciones_2.get(1);
+    Assert.assertEquals(_get_1, "mensaje: Recordatorio Del Evento: almorzar \'Enviado por SMS\'");
+    List<String> _notificaciones_3 = this.listener3.getNotificaciones();
+    String _get_2 = _notificaciones_3.get(2);
+    Assert.assertEquals(_get_2, "Mensaje a Numero: 123");
+    List<String> _notificaciones_4 = this.listener3.getNotificaciones();
+    String _get_3 = _notificaciones_4.get(2);
+    Assert.assertEquals(_get_3, "mensaje: acuerdate tambien de tener Plata \'Enviado por SMS\'");
   }
 }

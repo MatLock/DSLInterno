@@ -38,19 +38,26 @@ class DSLTest {
 	def testNotificacionesPorLlamada(){
 		agenda.tick(7,listener1)
 		assertEquals(listener1.getNotificaciones.size,2)
+		assertEquals(listener1.getNotificaciones.get(0),"Llamada a:123")
+		assertEquals(listener1.getNotificaciones.get(0),"mensaje: Recordatorio Del Evento: despertarse 'Recordado Por Llamada Telefonica'")
 	}
 	
 	@Test
 	def testNotificacionesPorSMS(){
-	    agenda.tick(10,listener3)
-	    assertEquals(listener3.getNotificaciones.size,4)
-		
+	    agenda.tick(9,listener2)
+	    assertEquals(listener2.getNotificaciones.size,3)
+	    assertEquals(listener2.getNotificaciones.get(0),"subject: Ir a la facu")
+	    assertEquals(listener2.getNotificaciones.get(1),"emailDestino: unEmail@gmail")
+		assertEquals(listener2.getNotificaciones.get(2),"mensaje: Recordatorio Del Evento: Ir a la facu 'Enviado por EMAIL'")
 	}
 	
 	@Test
 	def testNotificacionesPorEMAIL(){
-		agenda.tick(9,listener2)
-		assertEquals(listener2.getNotificaciones.size,3)
-		
+		agenda.tick(10,listener3)
+		assertEquals(listener3.getNotificaciones.size,4)
+		assertEquals(listener3.getNotificaciones.get(0),"Mensaje a Numero: 123")
+		assertEquals(listener3.getNotificaciones.get(1),"mensaje: Recordatorio Del Evento: almorzar 'Enviado por SMS'")
+		assertEquals(listener3.getNotificaciones.get(2),"Mensaje a Numero: 123")
+		assertEquals(listener3.getNotificaciones.get(2),"mensaje: acuerdate tambien de tener Plata 'Enviado por SMS'")
 	}
 }

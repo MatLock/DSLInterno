@@ -27,7 +27,6 @@ class DSL {
 			                          >> ( recordarPorSMS <=> [ setNumeroDeDestinoSMS(123)]))
 		
 		
-		
 		agenda.tick(7, listener1)
 		listener1.getNotificaciones().forEach [each | System.out.println(each)]
 	    
